@@ -1,0 +1,1 @@
+# composite-action-private-registry-docker-actions
