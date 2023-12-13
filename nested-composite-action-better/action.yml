@@ -23,10 +23,10 @@ runs:
       shell: bash
     - name: prepare the folder for the second action otherwise have to hardcode ref in folder path
       run: | 
-        mkdir -p ${{ github.workspace }}/the-actual-docker-action
+        mkdir -p __tmp/the-actual-docker-action
         action=$(find ${{ github.action_path }} -path "*/the-actual-docker-action/action.yml")
         echo "action is in this path: $action"
-        cp $action ${{ github.workspace }}/the-actual-docker-action/action.yml
+        cp $action __tmp/the-actual-docker-action/
       shell: bash
     - name: run the second composite action
-      uses: ./the-actual-docker-action
+      uses: __tmp/the-actual-docker-action
