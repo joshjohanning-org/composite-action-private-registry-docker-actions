@@ -37,3 +37,8 @@ runs:
       name: restore original docker creds
       shell: bash
       if: always() && steps.docker-backup.conclusion == 'success'
+
+    - run: cat ${{ runner.workspace }}/../../.docker/config.json
+      name: print docker registries
+      shell: bash
+      if: always() && steps.docker-backup.conclusion == 'success'
