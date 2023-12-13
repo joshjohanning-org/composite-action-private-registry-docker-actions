@@ -29,17 +29,7 @@ runs:
       shell: bash
       if: always()
 
-    - run: cat /home/runner/.docker/config.json
-      name: show docker config pre-delete
-      shell: bash
-      if: always()
-
     - run: docker logout test123j.azurecr.io
       name: cleanup docker creds
-      shell: bash
-      if: always()
-
-    - run: cat /home/runner/.docker/config.json
-      name: show docker config post-delete
       shell: bash
       if: always()
