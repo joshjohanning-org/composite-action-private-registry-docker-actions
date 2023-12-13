@@ -1,0 +1,25 @@
+name: 'private registry docker action test'
+description: 'private registry docker action test'
+inputs:
+  my-test-input:
+    description: 'test'
+    required: true
+    default: 'okay'
+  acr-secret:
+    description: 'secret to acr'
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - name: mask secret
+      run: echo "::add-mask::${{ inputs.acr-secret }}"
+      shell: bash
+    - run: echo "in the first composite action"
+      shell: bash
+    - name: auth to acr
+      shell: bash
+      run: echo ${{ inputs.acr-secret }} | docker login --username test123j --password-stdin test123j.azurecr.io
+    - run: ls -R ${{ github.action_path }}
+      shell: bash
+    - name: run the second composite action
+      uses: ./nest-remote-composite-action-in-composite-action/the-actual-docker-action
