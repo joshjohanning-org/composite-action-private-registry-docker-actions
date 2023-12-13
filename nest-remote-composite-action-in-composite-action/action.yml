@@ -25,6 +25,7 @@ runs:
       run: | 
         mkdir -p ${{ github.workspace }}/the-actual-docker-action
         action=$(find ${{ github.action_path }} -path "*/the-actual-docker-action/action.yml")
+        echo "action is in this path: $action"
         cp $action ${{ github.workspace }}/the-actual-docker-action/action.yml
       shell: bash
     - name: run the second composite action
