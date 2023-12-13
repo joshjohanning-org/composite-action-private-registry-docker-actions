@@ -1,13 +1,6 @@
 name: 'private registry docker action test'
 description: 'private registry docker action test'
-inputs:
-  my-test-input:
-    description: 'test'
-    required: true
-    default: 'okay'
 runs:
   using: "composite"
   steps:
-    - run: echo "in the second composite action"
-      shell: bash
     - uses: joshjohanning-org/CodeCoverageSummary@master

@@ -1,0 +1,14 @@
+name: 'private registry docker action test'
+description: 'private registry docker action test'
+
+outputs:
+  path:
+    description: action path
+    value: ${{ steps.get-path.outputs.path }}
+    
+runs:
+  using: "composite"
+  steps:
+    - run: echo 'path=${{ github.action_path }}/..' >> $GITHUB_OUTPUT
+      id: get-path
+      shell: bash

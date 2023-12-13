@@ -1,0 +1,41 @@
+name: 'private registry docker action test'
+description: 'private registry docker action test'
+inputs:
+  password:  
+    required: true
+    description: acr password
+runs:
+  using: "composite"
+  steps:
+    - name: auth to acr
+      run: echo ${{ inputs.password }} | docker login --username test123j --password-stdin test123j.azurecr.io
+      shell: bash
+
+    # get and output path to composite action
+    - uses: joshjohanning-org/composite-action-private-registry-docker-actions/nested-composite-action-better/2-get-path@main
+      id: composite-path
+
+    # copy composite action to tmp folder - the action-implementation folder is where you define what docker action to reference
+    - run: |
+        mkdir -p __tmp/CodeCoverageSummaryImplementation
+        cp -r '${{ steps.composite-path.outputs.path }}/nested-composite-action-better/3-action-implementation' __tmp/action-implementation
+      shell: bash
+
+    # run the local composite action w/ docker private registry
+    - uses: ./__tmp/action-implementation/action-implementation
+
+    - run: rm -rf __tmp/action-implementation
+      name: cleanup action
+      shell: bash
+
+    - run: cat /home/runner/.docker/config.json
+      name: show docker config pre-delete
+      shell: bash
+
+    - run: docker logout test123j.azurecr.io
+      name: cleanup docker creds
+      shell: bash
+
+    - run: cat /home/runner/.docker/config.json
+      name: show docker config post-delete
+      shell: bash
