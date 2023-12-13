@@ -7,6 +7,10 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - name: back up docker creds
+      run: cp ${{ runner.workspace }}/../../.docker/config.json ${{ runner.workspace }}/../../.docker/config.json.bak
+      id: docker-backup
+      shell: bash
     - name: auth to acr
       run: echo ${{ inputs.password }} | docker login --username test123j --password-stdin test123j.azurecr.io
       shell: bash
@@ -29,7 +33,7 @@ runs:
       shell: bash
       if: always()
 
-    - run: docker logout test123j.azurecr.io
-      name: cleanup docker creds
+    - run: mv ${{ runner.workspace }}/../../.docker/config.json.bak ${{ runner.workspace }}/../../.docker/config.json
+      name: restore original docker creds
       shell: bash
-      if: always()
+      if: always() && steps.docker-backup.conclusion == 'success'
