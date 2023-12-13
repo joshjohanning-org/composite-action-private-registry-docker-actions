@@ -8,6 +8,4 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - run: echo "in the second composite action"
-      shell: bash
     - uses: joshjohanning-org/CodeCoverageSummary@master

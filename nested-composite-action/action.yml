@@ -14,13 +14,9 @@ runs:
     - name: mask secret
       run: echo "::add-mask::${{ inputs.acr-secret }}"
       shell: bash
-    - run: echo "in the first composite action"
-      shell: bash
     - name: auth to acr
       shell: bash
       run: echo ${{ inputs.acr-secret }} | docker login --username test123j --password-stdin test123j.azurecr.io
-    - run: ls -R ${{ github.action_path }}
-      shell: bash
     - name: prepare the folder for the second action otherwise have to hardcode ref in folder path
       run: | 
         mkdir -p ${{ github.workspace }}/the-actual-docker-action
