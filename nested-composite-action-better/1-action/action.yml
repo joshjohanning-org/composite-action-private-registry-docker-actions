@@ -21,8 +21,11 @@ runs:
         cp -r '${{ steps.composite-path.outputs.path }}/3-action-implementation' __tmp/action-implementation
       shell: bash
 
+    - run: ls -R
+      shell: bash
+
     # run the local composite action w/ docker private registry
-    - uses: ./__tmp/action-implementation/action-implementation
+    - uses: ./__tmp/action-implementation
 
     - run: rm -rf __tmp/action-implementation
       name: cleanup action
