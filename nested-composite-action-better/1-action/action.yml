@@ -22,9 +22,7 @@ runs:
     # copy composite action to tmp folder - the action-implementation folder is where you define what docker action to reference
     - run: |
         mkdir -p __tmp
-        ls -R ${{ steps.composite-path.outputs.path }}
         cp -r '${{ steps.composite-path.outputs.path }}/3-action-implementation' __tmp/action-implementation
-        ls -R __tmp/action-implementation
       shell: bash
 
     # run the local composite action w/ docker private registry
