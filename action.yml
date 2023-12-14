@@ -20,7 +20,7 @@ runs:
       shell: bash
     - run: echo Hello ${{ inputs.who-to-greet }}.
       shell: bash
-    - uses: joshjohanning-org/CodeCoverageSummary@master
+    - uses: joshjohanning-org/simple-docker-action/private@main
     - id: random-number-generator
       run: echo "random-id=$(echo $RANDOM)" >> $GITHUB_OUTPUT
       shell: bash

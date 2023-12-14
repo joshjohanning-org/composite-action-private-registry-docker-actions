@@ -8,4 +8,4 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - uses: joshjohanning-org/CodeCoverageSummary@master
+    - uses: joshjohanning-org/simple-docker-action/private@main
