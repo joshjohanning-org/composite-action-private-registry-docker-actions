@@ -23,8 +23,9 @@ runs:
         action=$(find ${{ github.action_path }} -path "*/the-actual-private-docker-action/action.yml")
         echo "action is in this path: $action"
         cp $action ${{ runner.temp }}/the-actual-private-docker-action/action.yml
+        echo "copied to ${{ runner.temp }}/the-actual-private-docker-action/action.yml"
       shell: bash
     - name: run the second composite action
-      uses: ./the-actual-private-docker-action
+      uses: ${{ runner.temp }}/the-actual-private-docker-action
       with:
         who-to-greet: ${{ inputs.my-test-input }}
