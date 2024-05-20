@@ -24,6 +24,7 @@ runs:
         echo "action is in this path: $action"
         cp $action ./__tmp/the-actual-private-docker-action/action.yml
         echo "copied to ./__tmp/the-actual-private-docker-action/action.yml"
+        docker pull test123j.azurecr.io/actions/simple-docker-action:1
       shell: bash
     - name: run the second composite action
       uses: ./__tmp/the-actual-private-docker-action
