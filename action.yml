@@ -19,13 +19,13 @@ runs:
       run: echo ${{ inputs.acr-secret }} | docker login --username test123j --password-stdin test123j.azurecr.io
     - name: prepare the folder for the second action otherwise have to hardcode ref in folder path
       run: | 
-        mkdir -p ${{ runner.temp }}/the-actual-private-docker-action
+        mkdir -p __tmp/the-actual-private-docker-action
         action=$(find ${{ github.action_path }} -path "*/the-actual-private-docker-action/action.yml")
         echo "action is in this path: $action"
-        cp $action ${{ runner.temp }}/the-actual-private-docker-action/action.yml
-        echo "copied to ${{ runner.temp }}/the-actual-private-docker-action/action.yml"
+        cp $action __tmp/the-actual-private-docker-action/action.yml
+        echo "copied to __tmp/the-actual-private-docker-action/action.yml"
       shell: bash
     - name: run the second composite action
-      uses: ${{ runner.temp }}/the-actual-private-docker-action
+      uses: __tmp/the-actual-private-docker-action
       with:
         who-to-greet: ${{ inputs.my-test-input }}
